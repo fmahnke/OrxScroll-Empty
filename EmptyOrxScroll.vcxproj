@@ -43,6 +43,7 @@
     </LinkIncremental>
     <TargetName>$(ProjectName)d</TargetName>
     <GenerateManifest>false</GenerateManifest>
+    <OutDir>$(SolutionDir)bin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -53,7 +54,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>__orxDEBUG__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\iarScroll\include\Scroll</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include\Scroll</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
@@ -61,7 +62,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>orxd.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\orx\code\lib\dynamic</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>lib\dynamic</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -82,20 +83,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\iarScroll\include\Scroll\Scroll.h" />
-    <ClInclude Include="..\iarScroll\include\Scroll\ScrollBase.h" />
-    <ClInclude Include="..\iarScroll\include\Scroll\ScrollEd.h" />
-    <ClInclude Include="..\iarScroll\include\Scroll\ScrollObject.h" />
+    <ClInclude Include="include\Scroll\Scroll.h" />
+    <ClInclude Include="include\Scroll\ScrollBase.h" />
+    <ClInclude Include="include\Scroll\ScrollEd.h" />
+    <ClInclude Include="include\Scroll\ScrollObject.h" />
     <ClInclude Include="OrxScroll.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="OrxScroll.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\iarScroll\include\Scroll\Scroll.inl" />
-    <None Include="..\iarScroll\include\Scroll\ScrollBase.inl" />
-    <None Include="..\iarScroll\include\Scroll\ScrollEd.inl" />
-    <None Include="..\iarScroll\include\Scroll\ScrollObject.inl" />
+    <None Include="include\Scroll\Scroll.inl" />
+    <None Include="include\Scroll\ScrollBase.inl" />
+    <None Include="include\Scroll\ScrollEd.inl" />
+    <None Include="include\Scroll\ScrollObject.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -21,16 +21,16 @@
     <ClInclude Include="OrxScroll.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\iarScroll\include\Scroll\Scroll.h">
+    <ClInclude Include="include\Scroll\Scroll.h">
       <Filter>Header Files\SCroll</Filter>
     </ClInclude>
-    <ClInclude Include="..\iarScroll\include\Scroll\ScrollBase.h">
+    <ClInclude Include="include\Scroll\ScrollBase.h">
       <Filter>Header Files\SCroll</Filter>
     </ClInclude>
-    <ClInclude Include="..\iarScroll\include\Scroll\ScrollEd.h">
+    <ClInclude Include="include\Scroll\ScrollEd.h">
       <Filter>Header Files\SCroll</Filter>
     </ClInclude>
-    <ClInclude Include="..\iarScroll\include\Scroll\ScrollObject.h">
+    <ClInclude Include="include\Scroll\ScrollObject.h">
       <Filter>Header Files\SCroll</Filter>
     </ClInclude>
   </ItemGroup>
@@ -40,16 +40,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\iarScroll\include\Scroll\Scroll.inl">
+    <None Include="include\Scroll\Scroll.inl">
       <Filter>Header Files\SCroll</Filter>
     </None>
-    <None Include="..\iarScroll\include\Scroll\ScrollBase.inl">
+    <None Include="include\Scroll\ScrollBase.inl">
       <Filter>Header Files\SCroll</Filter>
     </None>
-    <None Include="..\iarScroll\include\Scroll\ScrollEd.inl">
+    <None Include="include\Scroll\ScrollEd.inl">
       <Filter>Header Files\SCroll</Filter>
     </None>
-    <None Include="..\iarScroll\include\Scroll\ScrollObject.inl">
+    <None Include="include\Scroll\ScrollObject.inl">
       <Filter>Header Files\SCroll</Filter>
     </None>
   </ItemGroup>

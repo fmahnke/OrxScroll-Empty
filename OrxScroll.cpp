@@ -7,8 +7,6 @@ orxSTATUS OrxScroll::Init ()
 {
     orxSTATUS result = orxSTATUS_SUCCESS;
 
-    CreateObject ("O-Boy");
-
     return result;
 }
 
