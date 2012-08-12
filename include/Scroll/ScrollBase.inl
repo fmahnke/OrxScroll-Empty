@@ -36,6 +36,7 @@ const orxSTRING ScrollBase::szConfigScrollObjectColor         = "Color";
 const orxSTRING ScrollBase::szConfigScrollObjectAlpha         = "Alpha";
 const orxSTRING ScrollBase::szConfigScrollObjectSmoothing     = "Smoothing";
 const orxSTRING ScrollBase::szConfigScrollObjectTiling        = "Tiling";
+const orxSTRING ScrollBase::szConfigScrollObjectPausable      = "Pausable";
 
 
 //! Static variables
@@ -78,10 +79,14 @@ ScrollObject *ScrollBase::CreateObject(const orxSTRING _zModelName, ScrollObject
   if(_zModelName && (_zModelName != orxSTRING_EMPTY))
   {
     orxCHAR                 zInstanceName[32];
+    const orxSTRING         zPreviousObject;
     ScrollObjectBinderBase *poBinder;
 
     // Gets binder
     poBinder = ScrollObjectBinderBase::GetBinder(orxFLAG_TEST(_xFlags, ScrollObject::FlagSave | ScrollObject::FlagRunTime) ? _zModelName : orxSTRING_EMPTY);
+
+    // Stores current object
+    zPreviousObject = mzCurrentObject;
 
     // Flags current object creation
     mzCurrentObject = _zModelName;
@@ -89,8 +94,8 @@ ScrollObject *ScrollBase::CreateObject(const orxSTRING _zModelName, ScrollObject
     // Uses it
     poResult = poBinder->CreateObject(_zModelName, _zInstanceName ? _zInstanceName : GetNewObjectName(zInstanceName, (_xFlags & ScrollObject::FlagRunTime) ? orxTRUE : orxFALSE), _xFlags);
 
-    // Removes current object creation flag
-    mzCurrentObject = orxNULL;
+    // Restores previous object
+    mzCurrentObject = zPreviousObject;
 
     // Valid?
     if(poResult)
@@ -192,9 +197,13 @@ void ScrollBase::DeleteObject(ScrollObject *_poObject)
     if(!mbObjectListLocked)
     {
       ScrollObjectBinderBase *poBinder;
+      const orxSTRING         zPreviousObject;
 
       // Gets binder
       poBinder = ScrollObjectBinderBase::GetBinder(_poObject->TestFlags(ScrollObject::FlagSave | ScrollObject::FlagRunTime) ? _poObject->GetModelName() : orxSTRING_EMPTY);
+
+      // Stores current object
+      zPreviousObject = mzCurrentObject;
 
       // Flags current object deletion
       mzCurrentObject = _poObject->GetModelName();
@@ -202,8 +211,8 @@ void ScrollBase::DeleteObject(ScrollObject *_poObject)
       // Deletes it
       poBinder->DeleteObject(_poObject);
 
-      // Removes current object deletion flag
-      mzCurrentObject = orxNULL;
+      // Restores previous object
+      mzCurrentObject = zPreviousObject;
     }
     else
     {
@@ -907,11 +916,16 @@ orxSTATUS ScrollBase::PauseGame(orxBOOL _bPause)
         poObject;
         poObject = GetNextObject(poObject))
     {
-      // Updates it
-      orxObject_Pause(poObject->GetOrxObject(), _bPause);
-
-      // Calls its callback
-      poObject->OnPauseGame(_bPause);
+      // Is pausable?
+      if(poObject->TestFlags(ScrollObject::FlagPausable))
+      {
+        // Calls its callback
+        if(poObject->OnPauseGame(_bPause) != orxFALSE)
+        {
+          // Updates it
+          orxObject_Pause(poObject->GetOrxObject(), _bPause);
+        }
+      }
     }
 
     // Unlocks object list
@@ -1988,20 +2002,28 @@ ScrollObject *ScrollObjectBinder<O>::CreateObject(orxOBJECT *_pstOrxObject, cons
       xFlags &= ~ScrollObject::FlagSmoothed;
     }
 
-    // Stores flags
-    poResult->SetFlags(xFlags, ScrollObject::MaskAll);
-
     // Creates and protects its section
     orxConfig_PushSection(_zInstanceName);
     orxConfig_ProtectSection(_zInstanceName, orxTRUE);
     orxConfig_PopSection();
 
+    // Pushes its section
+    poResult->PushConfigSection();
+
+    // Is pausable?
+    if((orxConfig_HasValue(ScrollBase::szConfigScrollObjectPausable) == orxFALSE)
+    || (orxConfig_GetBool(ScrollBase::szConfigScrollObjectPausable) != orxFALSE))
+    {
+      // Updates flags
+      xFlags |= ScrollObject::FlagPausable;
+    }
+
+    // Stores flags
+    poResult->SetFlags(xFlags, ScrollObject::MaskAll);
+
     // Should use callback?
     if(poResult->TestFlags(ScrollObject::FlagSave | ScrollObject::FlagRunTime))
     {
-      // Pushes its section
-      poResult->PushConfigSection();
-
       // Calls it
       poResult->OnCreate();
 
@@ -2011,10 +2033,10 @@ ScrollObject *ScrollObjectBinder<O>::CreateObject(orxOBJECT *_pstOrxObject, cons
         // Calls its start game callback
         poResult->OnStartGame();
       }
-
-      // Pops section
-      poResult->PopConfigSection();
     }
+
+    // Pops section
+    poResult->PopConfigSection();
   }
   else
   {
