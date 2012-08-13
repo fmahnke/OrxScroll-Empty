@@ -1,0 +1,61 @@
+[Map]
+CameraPosition = (-4.41102, 157.361, -4.5)
+CameraZoom = 1.57478
+Differential = true
+LayerNumber = 11
+ObjectNumber = 5
+
+[ScrollEd]
+EncryptSave = false
+LayerIndex = 5
+
+[SObj0000]
+Name = O-Boy
+Position = (-122, -31, 0)
+Scale = (1, 1, 1)
+Rotation = 0
+Color = (1, 1, 1)
+Alpha = 1
+Smoothing = false
+Tiling = false
+
+[SObj0001]
+Name = O-EnemyBug
+Position = (-90, 137, 0)
+Scale = (1, 1, 1)
+Rotation = 0
+Color = (1, 1, 1)
+Alpha = 1
+Smoothing = false
+Tiling = false
+
+[SObj0002]
+Name = O-EnemyBug
+Position = (126, -76, 0)
+Scale = (1, 1, 1)
+Rotation = 0
+Color = (1, 1, 1)
+Alpha = 1
+Smoothing = false
+Tiling = false
+
+[SObj0003]
+Name = O-EnemyBug
+Position = (138, 122, 0)
+Scale = (1, 1, 1)
+Rotation = 0
+Color = (1, 1, 1)
+Alpha = 1
+Smoothing = false
+Tiling = false
+
+[SObj0004]
+Name = O-EnemyBug
+Position = (-361, 242, 1.40909)
+Scale = (1.35802, 1.35802, 1)
+Rotation = 0
+Color = (1, 1, 1)
+Alpha = 1
+Smoothing = false
+Tiling = false
+
